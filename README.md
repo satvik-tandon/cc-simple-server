@@ -2,28 +2,37 @@
 
 ## **Overview**
 
-In this assignment, you will build a **Task Manager API** using **FastAPI** and **SQLite**. The goal is to provide a consistent development environment using **Vagrant** with **Docker** to avoid "it works on my machine" issues. This setup will help you understand how to use Vagrant for local development and implement RESTful APIs using FastAPI and SQLite.
+In this assignment, you will build a **Task Manager API** using **FastAPI** and **SQLite**. The goal is to provide a consistent development environment using **Vagrant** to avoid "it works on my machine" issues. This setup will help you understand how to use Vagrant for local development and implement RESTful APIs using FastAPI and SQLite.
 
 ---
 
 ## Additional Documentation
 - [vagrant.md](vagrant.md)
+- [sqlite.md](sqlite.md)
+- [rubric.md](rubric.md)
+- [python.md](python.md)
 
 ## **Learning Objectives**
 
-- Understand how to define API routes in **FastAPI**.
-- Learn how to interact with an **SQLite** database using SQL queries in Python.
+- Understand how to define API routes.
 - Implement different HTTP methods (`GET`, `POST`, `PUT`, `DELETE`) in FastAPI.
 - Use Vagrant to create a consistent and portable development environment.
-- Work with request and response models for type validation.
 
 ---
 
 ## **Assignment Tasks**
 
-You are provided with the FastAPI project structure and a **`Vagrantfile`** to set up the development environment.
+You are provided with a python project that is using the FastAPI webserver framework  and a **`Vagrantfile`** that is completed. Your job is to implement the following API routes:
+1. **`GET /tasks/`**: Retrieve all tasks from the SQLite database.
+2. **`POST /tasks/`**: Create a new task in the SQLite database.
+3. **`PUT /tasks/{task_id}/`**: Update an existing task in the SQLite database.
+4. **`DELETE /tasks/{task_id}/`**: Delete a task from the SQLite database.
+5. Return JSON message `{"message": "Welcome to the Cloud Computing!"}` from the index `/` route .
 
 ---
+
+## **Grading Rubric**
+
 
 ### **Development Environment Setup**
 
@@ -46,7 +55,12 @@ We are using **Vagrant** to ensure a consistent local development experience. Th
    docker --version
    vagrant --version
    ```
-
+4. **Install Vagrant Docker Plugin**:
+   Install the Vagrant Docker plugin:
+   ```bash
+   vagrant plugin install vagrant-docker-compose
+   ```
+   you can refer to the [vagrant.md](vagrant.md) for more information.
 ---
 
 ## **Using Vagrant for Local Development**
@@ -92,7 +106,7 @@ We are using **Vagrant** to ensure a consistent local development experience. Th
 
    - Access the API documentation at: `http://localhost:8000/docs`.
 
-7. **Stop the Container**:
+7. **Stop the Vagrant box**:
    To stop the development environment:
    ```bash
    vagrant halt
@@ -186,7 +200,7 @@ You are provided with the following Pydantic models for request and response val
    poetry run uvicorn cc_simple_server.server:app --reload --host 0.0.0.0 --port 8000
    ```
 
-2. **Test the Endpoints**:
+2. **Test the Endpoints From Outside the Vagrant Box**:
    - **Create a Task (`POST /tasks/`)**:
      ```json
      {
@@ -212,9 +226,8 @@ You are provided with the following Pydantic models for request and response val
 ## **Submission Instructions**
 
 - Implement all API routes (`GET`, `POST`, `PUT`, `DELETE`).
-- Ensure your API passes all tests.
-- Push your code to GitHub and submit the repository URL.
-- Include a README with your approach and any challenges faced.
+- Ensure your API passes all tests in Github Actions.
+- Push your code to the main branch in GitHub and submit the repository URL on Canvas.
 
 ---
 

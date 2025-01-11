@@ -32,7 +32,7 @@ def run_before_and_after_tests():
 def test_read_root():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Welcome to the SQLite Task Manager API!"}
+    assert response.json() == {"message": "Welcome to the Cloud Computing!"}
 
 
 def test_create_task():

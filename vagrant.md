@@ -1,9 +1,11 @@
 # **Vagrant with Docker**
-#### **YOU SHOULD NOT NEED TO EDIT THE VagrantFile**
+#### **YOU SHOULD NOT NEED TO EDIT THE [VagrantFile](Vagrantfile)**
 
 This guide will walk you through setting up your local development environment using **Vagrant** with **Docker** as the provider.
 
 We are using **Vagrant** to standardize our local development environment. Instead of installing dependencies directly on your machine, Vagrant will spin up a **Docker container** for your development work. This ensures that everyone has a consistent environment regardless of their operating system (Windows, macOS, or Linux).
+
+Since the class has a diverse array of operating systems, using Vagrant with Docker ensures that everyone has the same development environment. Traditionally Vagrant was used with popular virtualization software like VirtualBox, but now with the prevalence of arm64 and M1 Macs, Docker is a more lightweight and efficient choice.
 
 ---
 
@@ -96,7 +98,7 @@ After running:
 ```bash
 poetry run uvicorn cc_simple_server.server:app --reload --host 0.0.0.0 --port 8000
 ```
-The API will be available at:
+The API will be available outside the Vagrant machine at:
 ```
 http://localhost:8000
 ```

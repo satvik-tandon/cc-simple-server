@@ -172,3 +172,10 @@ cython_debug/
 
 # Vagrant
 .vagrant/
+
+# ide
+.idea
+.vscode
+
+#sqlite3
+tasks.db

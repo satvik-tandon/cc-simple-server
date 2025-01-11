@@ -7,7 +7,6 @@ import sqlite3
 DATABASE_PATH = "./tasks.db"
 
 
-# initialize the database if the tables to not exists
 def init_db():
     with sqlite3.connect(DATABASE_PATH) as conn:
         cursor = conn.cursor()

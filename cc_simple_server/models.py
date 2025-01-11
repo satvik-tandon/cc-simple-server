@@ -5,14 +5,14 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-# Pydantic model for creating a new task
+# new task model
 class TaskCreate(BaseModel):
     title: str
     description: Optional[str] = None
     completed: bool = False
 
 
-# Pydantic model for reading a task
+# read task model
 class TaskRead(BaseModel):
     id: int
     title: str
