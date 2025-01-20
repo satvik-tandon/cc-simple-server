@@ -1,5 +1,5 @@
 Vagrant.configure("2") do |config|
-  config.vm.hostname = "ubuntu"
+  config.vm.hostname = "cloud"
 
   # Use the Docker provider because it is faster and more lightweight
   # qemu is the only other provider that plays well with x86_64 and arm64 and that is slow
@@ -10,11 +10,9 @@ Vagrant.configure("2") do |config|
     docker.has_ssh = true
     docker.privileged = true
 
-    # only mount cgroup if we are on Linux
-    if RbConfig::CONFIG["host_os"] =~ /linux/i
-      docker.volumes << "/sys/fs/cgroup:/sys/fs/cgroup:rw"
-      docker.create_args = ["--cgroupns=host"]
-    end
+    # only mount cgroup if we are on Linux/OSX
+    docker.volumes << "/sys/fs/cgroup:/sys/fs/cgroup:rw"
+    docker.create_args = ["--cgroupns=host"]
 
     # sync the code, tests, and pyproject.toml into the container
     docker.volumes << "./cc_simple_server:/home/vagrant/app/cc_simple_server:rw"
@@ -22,6 +20,17 @@ Vagrant.configure("2") do |config|
     docker.volumes << "./tests:/home/vagrant/app/tests:rw"
   end
 
+  # use Virtualbox for x86 (Windows or older Macs)
+  config.vm.provider :virtualbox do |vb, override|
+    override.vm.box = "ubuntu/jammy64"
+    vb.memory = 2048
+    vb.cpus = 2
+
+    # sync the world
+    override.vm.synced_folder ".", "/home/vagrant/app", owner: "vagrant", group: "vagrant"
+  end
+
+  # network setup
   config.vm.network "forwarded_port", guest: 8000, host: 8000
 
   # inline shell script to setup the environment
@@ -56,7 +65,9 @@ Vagrant.configure("2") do |config|
     echo 'export PYTHONPATH="/home/vagrant/app"' >> /home/vagrant/.bashrc
     export PYTHONPATH="/home/vagrant/app"
 
-    echo "✅ Setup complete! Start your FastAPI app with:"
-    echo "   poetry run uvicorn cc_simple_server.server:app --reload --host 0.0.0.0 --port 8000"
+    echo "✅ Setup complete! Start your FastAPI app running the following:"
+    echo "  vagrant ssh"
+    echo "vagrant@cloud:~$ cd app"
+    echo "vagrant@cloud:~/app$ poetry run uvicorn cc_simple_server.server:app --reload --host 0.0.0.0 --port 8000"
   SHELL
 end
