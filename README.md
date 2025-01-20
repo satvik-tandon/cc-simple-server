@@ -12,6 +12,16 @@ In this assignment, you will build a **Task Manager API** using **FastAPI** and 
 - [rubric.md](rubric.md)
 - [python.md](python.md)
 
+---
+
+## Prequisites 
+- [vagrant](https://developer.hashicorp.com/vagrant/docs/installation) install
+- [docker](https://docs.docker.com/engine/install/) or [virtualbox](https://www.virtualbox.org/wiki/Downloads) installed
+  - use docker if you are on a M1/2/3 mac or arm based architecture
+  - use VirtualBox if you are on a Windows machine, any x86 based machine can use VirtualBox
+
+---
+
 ## **Learning Objectives**
 
 - Understand how to define API routes.
@@ -68,8 +78,12 @@ We are using **Vagrant** to ensure a consistent local development experience. Th
 ### **Vagrant Workflow**
 
 1. **Start the Development Environment**:
-   ```bash
+    ```bash
+   # note: if you have a arm based computer, M1/2/3 mac. Windows machines experience issues with this setup
    vagrant up --provider=docker
+   
+   # note: Windows users, or anyone with x86 based architecture
+   vagrant up --provider=virtualbox
    ```
    - This command starts the Docker container using the Vagrant configuration.
    - The first time this runs, it will pull the base image and create the container.
